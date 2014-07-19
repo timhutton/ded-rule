@@ -94,10 +94,6 @@ def partitions( b, sum_groups ):
         vd = [ set(e) for e in zip( *vp ) ] # valid digits in each position in the group
         for i in range(len(vd)):
             if not len( elems[i] ) == len( vd[i] ):
-                print 'Found something to remove!'
-                print total,subgroup
-                print 'elems',elems
-                print 'vd',vd
                 for val in set(elems[i]).difference(vd[i]):
                     elems[i].remove( val )
                 return ( 'partitions', "some values can't sum to "+str(total)+" here" )
@@ -115,10 +111,13 @@ def nested( b, sudoku_subgroups, sum_groups ):
                 b_minus_a = list(set(B).difference(set(A)))
                 elementsBminusA = [ b[j] for j in b_minus_a ]
                 for i in api:
+                    removed = False
                     for e in elementsBminusA:
                         if i in e:
                             e.remove(i)
-                            return ( 'nested', "nested subgroup must contain "+str(i)+" so can remove from containing subgroup" )
+                            removed = True
+                    if removed:
+                        return ( 'nested', "nested subgroup "+str(A)+" must contain "+str(i)+" so can remove from B-A" )
                             
 def ind(x,y): return x+y*9  
 
@@ -176,10 +175,10 @@ while True:
     if r == None:
         break   
     type, message = r
-    if not type == 'not_allowed_twice':
+    if not type in [ 'not_allowed_twice', 'partitions' ]:
         print message
         print_board( board )
-        #raw_input( "Press Enter to continue..." )
+        raw_input( "Press Enter to continue..." )
 print
 print_board( board )
 if sum( len(e) for e in board ) > 81:
