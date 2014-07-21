@@ -70,6 +70,9 @@ X,Y,board = from_string( 6, 6, '....0.33..1...12....20...1..11.2....' )
 # http://www.nikoli.co.jp/en/puzzles/slitherlink.html (can solve)
 X,Y,board = from_string( 8, 8, '.0.1..1..3..23.2..0....0.3..0......3..0.1....3..3.13..3..0..3.3.' )
 
+# http://www.kwontomloop.com/ sample (can solve)
+X,Y,board = from_string( 4, 4, '32.3...23...3.31' )
+
 ded_rules = [ stored_rule ]
 print_board( board, X, Y, ' ' )
 while True:
