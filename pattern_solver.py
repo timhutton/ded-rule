@@ -1,4 +1,4 @@
-# Solver for Patterns, by Simon Tatham
+# Solver for Pattern/Nonograms
 
 # entry: 0=white, 1=black, 2=unknown
 # clues: lengths of the black runs in that row/column
@@ -20,19 +20,17 @@ def rle_to_string(rle):
 
 def intersect(entries,possibilities):
     print entries,'-->',
-    k = union(p for p in possibilities if matches(entries,p))
+    k = intersection(p for p in possibilities if matches(entries,p))
     return k if k else 'Error'
 
-def union(strs):
-    '''Given a set of strings of 0,1, return a string with '.' if disagreement, else the 0 or 1.'''
-    t = map(list,zip(*strs)) # by entry
-    return ''.join('0' if all(e=='0' for e in te) else '1' if all(e=='1' for e in te) else '.' for te in t)
+def intersection(strs):
+    '''Given a set of strings, return a string with '.' if disagreement in a location, else the entry.'''
+    return ''.join('.' if len(set(te))>1 else te[0] for te in zip(*strs))
 
 def matches(entries,seq):
     '''e.g. "...1." matches with "00111" but not with "00101".'''
     return all(e=='.' or e==s for e,s in zip(entries,seq))
 
-poss=[]
 N = 13
 clues = [4,1,4]
 print N,clues
