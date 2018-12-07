@@ -1,2 +1,3 @@
 def test_dummy():
-    pass
+    with open('results.txt','w') as out:
+        out.write('Hello world.')
