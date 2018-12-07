@@ -42,9 +42,9 @@ jobs:
 
   - task: CopyFiles@2
     inputs:
-    contents: results.txt
-    targetFolder: $(Build.ArtifactStagingDirectory)
+      contents: results.txt
+      targetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
     inputs:
-    pathtoPublish: $(Build.ArtifactStagingDirectory)
-    artifactName: MyResults
+      pathtoPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: MyResults
