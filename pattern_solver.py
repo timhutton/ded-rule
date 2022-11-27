@@ -52,6 +52,16 @@ x_clues = [[3,6],[3,1,1,2,1],[3,3,1,3],[1,1,1,4,2,1],[1,1,1,7,5],[1,2,1,7,1,4],[
 y_clues = [[3,1,3,3],[3,3,1,7],[3,3,1,5,6],[9,1,3,1],[3,1,1,4],[6,2,3,3],[2,11,3,3,3],[1,6,6,2],[3,5,6,1],[1,1,4,2,2],[8,1,1,3,1,5],[2,1,3,4,5],[1,2,2,10,2],[1,5,4,3,1],[10,2,4,1],[17,1,1],[7,1,7,1],[5,1,8,1],[4,7,3],[9,4,3,6],[5,1,12,4],[1,1,5,5,4],[1,2,6,5,3],[2,2,1,2],[6],[1,8,9],[3,5,1,7,1],[3,4,1,1,7,2],[3,1,1,2,1,1],[4,1,1,1,2,1,1]]
 '''
 
+'''
+# Created by Luna https://mathstodon.xyz/@luna@tech.lgbt/109416722062483576
+# "the smallest uniquely-solvable picross/nonogram puzzle that can't be solved by naive one-line-at-a-time methods"
+# (indeed our solver fails to make any progress)
+X = 4
+Y = 2
+x_clues = [[1],[1],[1],[1]]
+y_clues = [[1,1],[2]]
+'''
+
 interactive = True
 
 grid = [['.' for x in range(X)] for y in range(Y)]
@@ -60,7 +70,7 @@ while found_new_entry:
     found_new_entry = False
     for i_col in range(X):
         clues = x_clues[i_col]
-        poss = map(rle_to_string, get_possibilities(X,clues))
+        poss = map(rle_to_string, get_possibilities(Y,clues))
         entries = col(grid,i_col)
         new_entries = intersect(entries,poss)
         for i,(e,c) in enumerate(zip(entries,new_entries)):
@@ -73,7 +83,7 @@ while found_new_entry:
                     raw_input('Press Enter to continue...')
     for i_row in range(Y):
         clues = y_clues[i_row]
-        poss = map(rle_to_string, get_possibilities(Y,clues))
+        poss = map(rle_to_string, get_possibilities(X,clues))
         entries = row(grid,i_row)
         new_entries = intersect(entries,poss)
         for i,(e,c) in enumerate(zip(entries,new_entries)):
